@@ -14,7 +14,7 @@
 				<fieldset>
 					<legend>jQuery ToDo list</legend>
 					<label> add to do item: 
-					<input type="text" name="checkListItem"/></label>
+					<input id="addItem" type="text" name="checkListItem"/></label>
 					<button type="button" class="btn btn-default" role="button" id="button">Add!</button>
 				</fieldset>
 			</form>
@@ -22,20 +22,29 @@
 	</div><!--row-->
 
 	<div class="row">
-		<div class="col-sm-6 text-center">	
+		<div class="col-sm-6">	
 			<fieldset>
-				<legend>To Do: </legend>
-				<div class="list"></div>
+				<legend class="text-center">To Do: </legend>
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="todolist"></div>
+					</div>
+				</div>
 			</fieldset>
 		</div><!--to do-->
-		<div class="col-sm-6 text-center">
+		<div class="col-sm-6">
 			<fieldset>
-				<legend>Completed: </legend>
-				<div class=""></div>
+				<legend class="text-center">Completed: </legend>
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="completedlist"></div>
+					</div>
+				</div>
 			</fieldset>
 		</div><!--completed-->
 	</div><!--row-->
 </div><!--container-->
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
 <script type="text/javascript" src="/lib/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="javascripts/main.js"></script>
