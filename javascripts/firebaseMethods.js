@@ -7,9 +7,9 @@ var FbAPI = (function(oldFirebase){
 				method: 'GET',
 				url:`${apiKeys.databaseURL}/items.json`
 			}).then((response)=>{
-				console.log(response);
+				resolve(response);
 			}, (error)=>{
-				console.log(error);
+				reject(error);
 			});
 		});
 	};

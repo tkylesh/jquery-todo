@@ -8,7 +8,12 @@ $(document).ready(()=>{
       console.log("keys", keys);
       apiKeys = keys;
         firebase.initializeApp(apiKeys);
+        FbAPI.getTodos(apiKeys).then(function(items){
+          console.log("items from FB", items);
+        });
     });
+
+
 });
 	
 	// var input = $('input[name=checkListItem]').val();
