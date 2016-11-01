@@ -5,6 +5,8 @@ let apiKeys = {};
 function putTodoInDOM(){
   FbAPI.getTodos(apiKeys).then(function(items){
     console.log("items from FB", items);
+    $('#completed-tasks').html('');
+    $('#incomplete-tasks').html('');
     items.forEach(function(item){
      if(item.isCompleted === true){
        let newListItem = '<li>';
@@ -25,7 +27,7 @@ function putTodoInDOM(){
         newListItem+='</div>';
         newListItem+='<div class="col-xs-4">';
         newListItem+='<button class="btn btn-default col-xs-6 edit">Edit</button>';
-        newListItem+='<button class="btn btn-danger col-xs-6 delete">Delete</button> ';
+        newListItem+=`<button class="btn btn-danger col-xs-6 delete"  data-fbid="${item.id}">Delete</button>`;
         newListItem+='</div>';
         newListItem+='</li>';
         //apend to list
@@ -44,7 +46,22 @@ $(document).ready(()=>{
       putTodoInDOM();
     });
 
+    $('#add-todo-button').on('click',function(){
+      let newItem = {
+        "task":$('#add-todo-text').val(),
+        "isCompleted":false
+      };
+      FbAPI.addTodo(apiKeys, newItem).then(function(){
+        putTodoInDOM();
+      });
+    });
 
+    $('ul').on('click','.delete',function(){
+      let itemId = $(this).data("fbid");
+      FbAPI.deleteTodo(apiKeys, itemId).then(function(){
+        putTodoInDOM();
+      });
+    });
 });
 	
 	// var input = $('input[name=checkListItem]').val();
