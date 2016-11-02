@@ -112,6 +112,21 @@ $(document).ready(()=>{
       });
     });
 
+    $('#loginButton').on('click',function(){
+      let email = $('#inputEmail').val();
+      let password = $('#inputPassword').val();
+      let user = {
+        "email": email,
+        "password": password
+      };
+      FbAPI.loginUser(user).then(function(loginResponse){
+        uid = loginResponse.uid;
+        putTodoInDOM();
+        $('#login-container').addClass("hide");
+        $('#todo-container').removeClass("hide");
+
+      });
+    });
 
 });
 	

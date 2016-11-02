@@ -1,11 +1,11 @@
 "use strict";
 var FbAPI = (function(oldFirebase){
 
-	oldFirebase.getTodos = function(apiKeys){
+	oldFirebase.getTodos = function(apiKeys, uid){
 		return new Promise((resolve, reject) => {
 			$.ajax({
 				method: 'GET',
-				url:`${apiKeys.databaseURL}/items.json`
+				url:`${apiKeys.databaseURL}/items.json?orderBy="uid"&equalTo="${uid}"`
 			}).then((response)=>{
 				//turn the object response into an array with this code
 				let items = [];
