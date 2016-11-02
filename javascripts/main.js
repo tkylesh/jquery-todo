@@ -4,7 +4,7 @@ let apiKeys = {};
 let uid = "";
 
 function putTodoInDOM(){
-  FbAPI.getTodos(apiKeys).then(function(items){
+  FbAPI.getTodos(apiKeys, uid).then(function(items){
     console.log("items from FB", items);
     $('#completed-tasks').html('');
     $('#incomplete-tasks').html('');
