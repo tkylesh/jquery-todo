@@ -1,6 +1,7 @@
 "use strict";
 
 let apiKeys = {};
+let uid = "";
 
 function putTodoInDOM(){
   FbAPI.getTodos(apiKeys).then(function(items){
@@ -42,7 +43,7 @@ $(document).ready(()=>{
       console.log("keys", keys);
       apiKeys = keys;
       firebase.initializeApp(apiKeys);
-      putTodoInDOM();
+      // putTodoInDOM();
     });
 
     $('#add-todo-button').on('click',function(){
@@ -90,6 +91,28 @@ $(document).ready(()=>{
         putTodoInDOM();
       });
     });
+
+    $('#registerButton').on('click',function(){
+      let email = $('#inputEmail').val();
+      let password = $('#inputPassword').val();
+      let user = {
+        "email": email,
+        "password": password
+      };
+      FbAPI.registerUser(user).then(function(response){
+        console.log("register response",response);
+        return FbAPI.loginUser(user);
+      }).then(function(loginResponse){
+        console.log("login response", loginResponse);
+        uid = loginResponse.uid;
+        putTodoInDOM();
+        //hide is a bootstrap class
+        $('#login-container').addClass("hide");
+        $('#todo-container').removeClass("hide");
+      });
+    });
+
+
 });
 	
 	// var input = $('input[name=checkListItem]').val();
