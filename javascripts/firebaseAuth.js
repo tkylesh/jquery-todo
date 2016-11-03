@@ -20,7 +20,7 @@ var FbAPI = (function(oldFirebase){
       .then((authData) =>{
         resolve(authData);
       })
-      .catch((error)=>{
+      .catch((error)=>{ 
         reject(error);
       });
     });

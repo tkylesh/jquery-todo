@@ -3,6 +3,7 @@
 let apiKeys = {};
 let uid = "";
 
+
 function putTodoInDOM(){
   FbAPI.getTodos(apiKeys, uid).then(function(items){
     console.log("items from FB", items);
@@ -34,6 +35,15 @@ function putTodoInDOM(){
         $('#incomplete-tasks').append(newListItem);
       }
     });
+  });
+}
+
+function createLogoutButton(){
+  FbAPI.getUser(apiKeys,uid).then(function(userResponse){
+    $('#logout-container').html('');
+    let currentUsername = userResponse.username;
+    let logoutButton = `<button class="btn btn-danger" id="logoutButton">LOGOUT ${currentUsername}</button>`;
+    $('#logout-container').append(logoutButton);
   });
 }
 
@@ -116,6 +126,7 @@ $(document).ready(()=>{
       }).then(function(loginResponse){
         console.log("login response", loginResponse);
         uid = loginResponse.uid;
+        createLogoutButton();
         putTodoInDOM();
         //hide is a bootstrap class
         $('#login-container').addClass("hide");
@@ -132,11 +143,16 @@ $(document).ready(()=>{
       };
       FbAPI.loginUser(user).then(function(loginResponse){
         uid = loginResponse.uid;
+        createLogoutButton();
         putTodoInDOM();
         $('#login-container').addClass("hide");
         $('#todo-container').removeClass("hide");
 
       });
+    });
+    $('#logoutButton').on('click',function(){
+        
+        FbAPI.logoutUser();
     });
 
 });
