@@ -158,6 +158,10 @@ $(document).ready(()=>{
         $('#completed-tasks').html('');
         $('#login-container').removeClass('hide');
         $('#todo-container').addClass('hide');
+        $('#inputEmail').val('');
+        $('#inputPassword').val('');
+        $('#inputUsername').val('');
+
     });
 
 });
