@@ -49,7 +49,8 @@ $(document).ready(()=>{
     $('#add-todo-button').on('click',function(){
       let newItem = {
         "task":$('#add-todo-text').val(),
-        "isCompleted":false
+        "isCompleted":false,
+        "uid": uid
       };
       FbAPI.addTodo(apiKeys, newItem).then(function(){
         putTodoInDOM();
@@ -71,7 +72,8 @@ $(document).ready(()=>{
       }else{
         let editedItem = {
           "task": parent.find(".inputTask").val(),
-          "isCompleted":false
+          "isCompleted":false,
+          "uid":uid
         };
         FbAPI.editTodo(apiKeys, itemId, editedItem).then(function(response){
           parent.removeClass("editMode");
@@ -85,7 +87,8 @@ $(document).ready(()=>{
       let task = $(this).siblings(".inputLabel").html();
       let editedItem = {
         "task": task,
-        "isCompleted": !updatedIsCompleted    
+        "isCompleted": !updatedIsCompleted,
+        "uid":uid   
       };
       FbAPI.editTodo(apiKeys, itemId, editedItem).then(function(){
         putTodoInDOM();
@@ -95,12 +98,20 @@ $(document).ready(()=>{
     $('#registerButton').on('click',function(){
       let email = $('#inputEmail').val();
       let password = $('#inputPassword').val();
+      let username = $('#inputUsername').val();
       let user = {
         "email": email,
         "password": password
       };
-      FbAPI.registerUser(user).then(function(response){
-        console.log("register response",response);
+      FbAPI.registerUser(user).then(function(registerResponse){
+        console.log("register response",registerResponse);
+        let newUser = {
+          "username": username,
+          "uid": registerResponse.uid
+        };
+        let uid = registerResponse;
+        return FbAPI.addUser(apiKeys, newUser);
+      }).then(function(adduserResponse){
         return FbAPI.loginUser(user);
       }).then(function(loginResponse){
         console.log("login response", loginResponse);
