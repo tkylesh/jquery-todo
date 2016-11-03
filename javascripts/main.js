@@ -150,9 +150,14 @@ $(document).ready(()=>{
 
       });
     });
-    $('#logoutButton').on('click',function(){
-        
+
+    $('#logout-container').on('click','#logoutButton',function(){
         FbAPI.logoutUser();
+        uid = "";
+        $('#incomplete-tasks').html('');
+        $('#completed-tasks').html('');
+        $('#login-container').removeClass('hide');
+        $('#todo-container').addClass('hide');
     });
 
 });
