@@ -161,7 +161,7 @@ $(document).ready(()=>{
         $('#inputEmail').val('');
         $('#inputPassword').val('');
         $('#inputUsername').val('');
-
+        $('#inputEmail').focus();
     });
 
 });
